@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <script src="http://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script>
+
+        $(function () {
+            $("#button").click(function () {
+                $.ajax({
+                    url:"addComment",
+                    type:"post",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({name:$("#name").val(),email:$("#email").val(),content:$("#content").val()}),
+                    success:function (data) {
+                        location.reload()
+                    }
+                });
+
+            });
+        })
+
+    </script>
+</head>
+<body>
+
+
+    <table >
+        <thead>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>邮箱</th>
+        <th>留言</th>
+        </thead>
+        <tbody>
+        <tr th:each="entries,stat:${comments}" >
+            <td th:text="${stat.count}"></td>
+            <td th:text="${entries.name}"></td>
+            <td th:text="${entries.email}"></td>
+            <td th:text="${entries.content}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <hr>
+
+
+    <form id="form">
+        <input type="text" name="name" id="name" placeholder="姓名"><br/>
+        <input type="text" name="email" id="email" placeholder="邮箱"><br/>
+        <textarea name="content" id="content" placeholder="留言内容"></textarea><br>
+        <input type="button" id="button" value="提交"/>
+    </form>
+
+</body>
+</html>

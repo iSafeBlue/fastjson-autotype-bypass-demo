@@ -43,7 +43,7 @@ public class CommentController {
     @RequestMapping("addComment")
     @ResponseBody
     public String addComment(@RequestBody String comment){
-        ParserConfig.getGlobalInstance().addDeny("org.openqa.selenium");
+        
         JSONObject jsonObject = JSON.parseObject(comment);
         Comment temp = new Comment();
         temp.setName(jsonObject.getString("name"));
